@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="budget_transaction_view_tree" model="ir.ui.view">
+        <field name="name">Budget Transaction List</field>
+        <field name="model">budget.transaction</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="amount"/>
+                <!-- <field name="budget_category_id.category_name"/> -->
+                <field name="category_name"/> 
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="budget_transaction_view_form" model="ir.ui.view">
+        <field name="name">Transaction Form</field>
+        <field name="model">budget.transaction</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="amount"/>
+                    <field name="budget_category_id" widget="many2one_tags"/>
+                </group>
+                <group>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="budget_category_view_tree" model="ir.ui.view">
+        <field name="name">Budget Category List</field>
+        <field name="model">budget.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="category_name"/>
+                <field name="is_income"/>
+                <field name="mensual"/>
+            </tree>
+        </field>
+    </record>
+
+    <act_window id="action_all_transactions"
+        name="All Transactions"
+        res_model="budget.transaction"
+        view_mode = "list,form"
+        limit="80"
+    />
+
+    <act_window id="action_all_categories"
+        name="All Categories"
+        res_model="budget.category"
+        view_mode = "list,form"
+        limit="80"
+    />
+
+    <menuitem
+        id="menu_custom_toplevel"
+        name="Budget Manager For Dummies"
+    />
+
+    <menuitem
+        id="menu_custom_left"
+        parent="menu_custom_toplevel"
+        name="This will appear in the left bar"
+    />
+
+    <menuitem
+        id="menu_all_transactions"
+        parent="menu_custom_left"
+        action="action_all_transactions"
+        sequence="10"
+        groups=""
+    />
+
+    <menuitem
+        id="menu_all_categories"
+        parent="menu_custom_left"
+        action="action_all_categories"
+        sequence="10"
+        groups=""
+    />
+</odoo>
